@@ -11,6 +11,8 @@ jobs:
     name: CI MSVC
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Check CMake version
         run: cmake --version
@@ -19,7 +21,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Generate CMake project
-        run: cmake -S. -Bbuild -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES=RelWithDebInfo
+        run: cmake -S. -Bbuild
 
       - name: Build 64bit release DLL
         run: cmake --build build --config RelWithDebInfo
