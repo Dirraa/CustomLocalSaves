@@ -1,6 +1,9 @@
 name: CI
 
-on: [push, pull_request]
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   ci_msvc:
@@ -21,21 +24,18 @@ jobs:
       - name: Build 64bit release DLL
         run: cmake --build build --config RelWithDebInfo
 
-      - name: Rename ASI to CLS-dev-{GITHUB_SHA}.asi
-        run: ren CLS.asi CLS-dev-${{github.sha}}.asi
+      - name: Rename ASI to CLS-${{ github.sha }}.asi
+        run: ren CLS.asi CLS-${{ github.sha }}.asi
         working-directory: build/RelWithDebInfo
 
       - name: Upload Artifact (asi)
         uses: actions/upload-artifact@v4
         with:
           name: binary-MSVC
-          path: build/RelWithDebInfo/CLS-dev-*.asi
+          path: build/RelWithDebInfo/CLS-*.asi
 
       - name: Upload Artifact (pdb)
         uses: actions/upload-artifact@v4
         with:
           name: pdb-MSVC
           path: build/RelWithDebInfo/CLS.pdb
-# CI trigger 20260705-095524
-
-# trigger-run-20260705095536
