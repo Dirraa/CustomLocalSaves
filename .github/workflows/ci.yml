@@ -36,3 +36,4 @@ jobs:
         with:
           name: pdb-MSVC
           path: build/RelWithDebInfo/CLS.pdb
+# CI trigger 20260705-095524
